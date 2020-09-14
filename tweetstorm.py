@@ -16,14 +16,16 @@ def tweetstorm(text: str) -> list:
     start_idx = 0
     for i in range(final_tt_count):
         curr_str = str(i + 1) + '/' + str(final_tt_count) + ' '
-        for j in range(start_idx, n):
-            if len(curr_str) < 140:
-                curr_str += text[j]
-                start_idx += 1
-            else:
-                results.append(curr_str)
-                break
-    results.append(curr_str)
-    print(results)
+        last_idx = start_idx + 134
+        if last_idx >= n:
+            last_idx = n - 1
+        while text[last_idx] != ' ':
+            last_idx -= 1
+        curr_str += text[start_idx:last_idx]
+        start_idx = last_idx
+        results.append(curr_str)   
+
+    for r in results:
+        print(len(r), r)
 
 tweetstorm('vamos ver se vai dar certo! esse aqui será meu primeiro tweet para testar. 140 caracteres parece pouco, mas qdo preciso lorotar é foda. lorotar é bem mais dificil do que parece! será que eu pensava dessa forma quando estava fazendo o tcc? kkkkk pq lá eu lorotei pra caralho! bons tempos. naquelas né. mas o assunto que eu estava estudando era de fato interessante. poderia ter continuado estudando, mas não sei se era bem o meu perfil')
